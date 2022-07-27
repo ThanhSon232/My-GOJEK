@@ -10,6 +10,7 @@ class RegisterView extends GetView<RegisterController> {
   const RegisterView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     var h_10 = const SizedBox(height: 10,);
     return GestureDetector(
       onTap: (){
@@ -37,7 +38,7 @@ class RegisterView extends GetView<RegisterController> {
               children: [
                 Image.asset("assets/phone_icon.png", height: 80,),
                 h_10,
-                const Text("Enter your primary phone number to register"),
+                Text("Enter your primary phone number to register", style: textTheme.headline1,),
                 h_10,
                 Row(
                   children: [
@@ -59,7 +60,7 @@ class RegisterView extends GetView<RegisterController> {
                               const SizedBox(
                                 width: 5,
                               ),
-                              const Text("+84")
+                              Text("+84", style: textTheme.headline3,)
                             ],
                           )),
                     ),
@@ -84,12 +85,15 @@ class RegisterView extends GetView<RegisterController> {
           ),
         ),
         bottomNavigationBar: SafeArea(
-          child:ElevatedButton(
-            onPressed: (){
-              Get.toNamed(Routes.PASSWORD);
-            },
-            child: Text("Continue"),
-            style: ElevatedButton.styleFrom(primary: Colors.green),
+          child:Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: ElevatedButton(
+              onPressed: (){
+                Get.toNamed(Routes.PASSWORD);
+              },
+              style: ElevatedButton.styleFrom(primary: Colors.green),
+              child: const Text("Continue"),
+            ),
           ),
         ),
       ),

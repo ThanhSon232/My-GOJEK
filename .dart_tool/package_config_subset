@@ -86,6 +86,10 @@ flutter_lints
 2.17
 file:///Users/thanhson/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_lints-2.0.1/
 file:///Users/thanhson/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_lints-2.0.1/lib/
+flutter_plugin_android_lifecycle
+2.12
+file:///Users/thanhson/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-2.0.7/
+file:///Users/thanhson/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-2.0.7/lib/
 flutter_spinkit
 2.12
 file:///Users/thanhson/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_spinkit-5.1.0/
@@ -102,6 +106,14 @@ glob
 2.15
 file:///Users/thanhson/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/glob-2.1.0/
 file:///Users/thanhson/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/glob-2.1.0/lib/
+google_maps_flutter
+2.14
+file:///Users/thanhson/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter-2.1.9/
+file:///Users/thanhson/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter-2.1.9/lib/
+google_maps_flutter_platform_interface
+2.12
+file:///Users/thanhson/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter_platform_interface-2.2.1/
+file:///Users/thanhson/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter_platform_interface-2.2.1/lib/
 http
 2.14
 file:///Users/thanhson/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.13.4/
@@ -142,6 +154,10 @@ path
 2.12
 file:///Users/thanhson/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/path-1.8.1/
 file:///Users/thanhson/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/path-1.8.1/lib/
+plugin_platform_interface
+2.12
+file:///Users/thanhson/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/plugin_platform_interface-2.1.2/
+file:///Users/thanhson/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/plugin_platform_interface-2.1.2/lib/
 process_run
 2.14
 file:///Users/thanhson/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/process_run-0.12.3+2/
@@ -174,6 +190,10 @@ stream_channel
 2.12
 file:///Users/thanhson/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/stream_channel-2.1.0/
 file:///Users/thanhson/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/stream_channel-2.1.0/lib/
+stream_transform
+2.12
+file:///Users/thanhson/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/stream_transform-2.0.0/
+file:///Users/thanhson/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/stream_transform-2.0.0/lib/
 string_scanner
 2.12
 file:///Users/thanhson/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/string_scanner-1.1.0/

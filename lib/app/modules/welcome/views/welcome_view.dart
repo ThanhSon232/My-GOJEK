@@ -10,6 +10,7 @@ class WelcomeView extends GetView<WelcomeController> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     var h_20 = const SizedBox(
       height: 20,
     );
@@ -42,7 +43,7 @@ class WelcomeView extends GetView<WelcomeController> {
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(primary: Colors.green),
                         onPressed: () {
-                          // Get.toNamed(Routes.LOGIN);
+                          Get.toNamed(Routes.LOGIN);
                         },
                         child: const Text("Log in"))),
                 h_20,
@@ -54,7 +55,7 @@ class WelcomeView extends GetView<WelcomeController> {
                         onPressed: () {
                           Get.toNamed(Routes.REGISTER);
                         },
-                        child: const Text("REGISTER AS DRIVER-PARTNER"))),
+                        child: Text("REGISTER AS DRIVER-PARTNER", style: textTheme.headline3!.copyWith(color: Colors.green),))),
                 h_20,
                 const Text(
                     "Click on Register to start or continue signing up, and view your registration status"),
