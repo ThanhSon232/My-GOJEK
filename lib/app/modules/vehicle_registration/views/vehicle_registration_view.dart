@@ -20,37 +20,49 @@ class VehicleRegistrationView extends GetView<VehicleRegistrationController> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-          appBar: AppBar(
-            title: Text(
-              'Vehicle Registration',
-              style: textTheme.headline1,
-            ),
-            centerTitle: false,
-            leading: IconButton(
-              onPressed: () {
-                Get.back();
-              },
-              icon: const Icon(
-                Icons.arrow_back,
-                color: Colors.grey,
-              ),
+        appBar: AppBar(
+          title: Text(
+            'Vehicle Registration',
+            style: textTheme.headline1,
+          ),
+          centerTitle: false,
+          leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.grey,
             ),
           ),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20),
+        ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20),
+            child: Form(
+              key: controller.formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   titleAndText(
-                      title: "Number plate", hint: "", textTheme: textTheme),
+                      title: "Number plate",
+                      hint: "e.g 60B3-XXXXXX",
+                      textTheme: textTheme,
+                      controller: controller.numberPlateController,
+                      validator: (value) =>
+                          controller.numberPlateValidator(value!)),
                   h_20,
-                  titleAndText(title: "Owner", hint: "", textTheme: textTheme),
+                  titleAndText(
+                      title: "Owner",
+                      hint: "e.g Adit Bruhman",
+                      textTheme: textTheme,
+                      controller: controller.ownerName,
+                      validator: (value) =>
+                          controller.ownerNameValidator(value!)),
                   h_20,
                   titleAndText(
                       title: "Vehicle brand",
-                      hint: "",
+                      hint: "Click here to select",
                       textTheme: textTheme,
                       onTap: () {
                         Get.bottomSheet(
@@ -59,24 +71,31 @@ class VehicleRegistrationView extends GetView<VehicleRegistrationController> {
                         );
                       },
                       controller: controller.vehicleBrandController,
+                      validator: (value) =>  controller.vehicleBrandValidator(value!),
                       disable: true,
                       icon: Icons.arrow_drop_down),
                   h_20,
                   titleAndText(
-                      title: "Vehicle type",
-                      hint: "",
-                      textTheme: textTheme,
+                    title: "Vehicle type",
+                    hint: "Input vehicle type",
+                    controller: controller.vehicleType,
+                    validator: (value) => controller.vehicleTypeValidator(value!),
+                    textTheme: textTheme,
                   ),
                 ],
               ),
             ),
           ),
+        ),
         bottomNavigationBar: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
             child: ElevatedButton(
               onPressed: () {
-                Get.toNamed(Routes.VEHICLE_REGISTRATION);
+                if(controller.validateAndSave()){
+
+                }
+                // Get.toNamed(Routes.HOME);
               },
               style: ElevatedButton.styleFrom(
                 primary: Colors.green,
@@ -100,7 +119,8 @@ class VehicleRegistrationView extends GetView<VehicleRegistrationController> {
       IconData? icon,
       bool? disable,
       TextInputFormatter? format,
-      Function()? onTap}) {
+      Function()? onTap,
+      String? Function(String?)? validator}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -114,6 +134,7 @@ class VehicleRegistrationView extends GetView<VehicleRegistrationController> {
         TextFormField(
           controller: controller,
           readOnly: disable ?? false,
+          validator: (value) => validator != null ? validator(value) : null,
           onSaved: (value) {},
           onTap: onTap,
           obscureText: false,
@@ -125,7 +146,7 @@ class VehicleRegistrationView extends GetView<VehicleRegistrationController> {
 
   Widget bottomSheet({required TextTheme textTheme}) {
     return Container(
-        height: Get.height * 0.5,
+        height: Get.height * 0.7,
         color: Colors.transparent,
         child: Column(
           children: [
@@ -167,20 +188,28 @@ class VehicleRegistrationView extends GetView<VehicleRegistrationController> {
                   Expanded(
                     child: ListView.separated(
                       itemBuilder: (_, itemBuilder) {
+                        var value = controller.setUpProfileController
+                                    .selectedIndex.value ==
+                                0
+                            ? controller.motorcycleBrand[itemBuilder]
+                            : controller.carBrand[itemBuilder];
                         return ListTile(
                           onTap: () {
                             controller.selectedItem.value = itemBuilder;
-                            controller.vehicleBrandController.text =
-                                controller.motorcycleBrand[itemBuilder];
+                            controller.vehicleBrandController.text = value;
                             Get.back();
                           },
                           title: Text(
-                            controller.motorcycleBrand[itemBuilder],
+                            value,
                             style: textTheme.headline1!.copyWith(fontSize: 18),
                           ),
                         );
                       },
-                      itemCount: controller.motorcycleBrand.length,
+                      itemCount: controller
+                                  .setUpProfileController.selectedIndex.value ==
+                              0
+                          ? controller.motorcycleBrand.length
+                          : controller.carBrand.length,
                       separatorBuilder: (BuildContext context, int index) {
                         return const Padding(
                           padding: EdgeInsets.symmetric(vertical: 8.0),

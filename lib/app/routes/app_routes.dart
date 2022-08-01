@@ -15,6 +15,8 @@ abstract class Routes {
   static const PASSWORD_LOGIN = _Paths.PASSWORD_LOGIN;
   static const DASHBOARD_PAGE = _Paths.DASHBOARD_PAGE;
   static const INCOME = _Paths.INCOME;
+  static const USER = _Paths.USER;
+  static const REQUEST = _Paths.REQUEST;
 }
 
 abstract class _Paths {
@@ -31,4 +33,6 @@ abstract class _Paths {
   static const PASSWORD_LOGIN = '/password-login';
   static const DASHBOARD_PAGE = '/dashboard-page';
   static const INCOME = '/income';
+  static const USER = '/user';
+  static const REQUEST = '/request';
 }

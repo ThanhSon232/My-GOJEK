@@ -32,12 +32,16 @@ class PasswordLoginView extends GetView<PasswordLoginController> {
             h_20,
             Text("Enter your password to access our system", style: textTheme.headline1,),
             h_20,
-           TextFormField(
-                onSaved: (value) {
-                },
-                decoration: const InputDecoration(
-                    hintText: 'Enter your password'),
-              ),
+           Form(
+             key: controller.formKey,
+             child: TextFormField(
+                  controller: controller.passwordController,
+                  validator: (value) => controller.passwordValidator(value!),
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                      hintText: 'Enter your password'),
+                ),
+           ),
           ],
         ),
       ),
@@ -46,7 +50,9 @@ class PasswordLoginView extends GetView<PasswordLoginController> {
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
           child: ElevatedButton(
             onPressed: () {
-              Get.offAllNamed(Routes.DASHBOARD_PAGE);
+              if(controller.validateAndSave()){
+                Get.offAllNamed(Routes.DASHBOARD_PAGE);
+              }
             },
             style: ElevatedButton.styleFrom(
               primary: Colors.green,

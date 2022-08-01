@@ -54,12 +54,15 @@ class PasswordView extends GetView<PasswordController> {
                   style: textTheme.headline2,
                 ),
                 h_10,
-                TextFormField(
-                  onSaved: (value) {},
-                  inputFormatters: [],
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                      hintText: 'type password right here'),
+                Form(
+                  key: controller.formKey,
+                  child: TextFormField(
+                    obscureText: true,
+                    validator: (value) => controller.passwordValidator(value!),
+                    controller: controller.passwordController,
+                    decoration: const InputDecoration(
+                        hintText: 'type password right here'),
+                  ),
                 ),
               ],
             ),
@@ -70,7 +73,9 @@ class PasswordView extends GetView<PasswordController> {
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: ElevatedButton(
               onPressed: () {
-                Get.toNamed(Routes.SET_UP_PROFILE);
+                if(controller.validateAndSave()){
+                  Get.toNamed(Routes.SET_UP_PROFILE);
+                }
               },
               style: ElevatedButton.styleFrom(primary: Colors.green),
               child: const Text("Confirm"),

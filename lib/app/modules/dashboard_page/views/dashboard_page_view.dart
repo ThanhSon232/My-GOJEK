@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:my_gojek_driver/app/modules/income/views/income_view.dart';
 
 import '../../home/views/home_view.dart';
-import '../../register/views/register_view.dart';
 import '../controllers/dashboard_page_controller.dart';
 
 class DashboardPageView extends GetView<DashboardPageController> {
@@ -35,10 +34,6 @@ class DashboardPageView extends GetView<DashboardPageController> {
             BottomNavigationBarItem(
               icon: Icon(Icons.wallet, color: Colors.green,),
               label: 'Income',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.mail, color: Colors.green),
-              label: 'Account',
             ),
           ],
         ),

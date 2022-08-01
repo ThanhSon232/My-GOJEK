@@ -1,9 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
   //TODO: Implement LoginController
-
-  final count = 0.obs;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  TextEditingController phoneNumberController = TextEditingController();
   @override
   void onInit() {
     super.onInit();
@@ -19,5 +20,22 @@ class LoginController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  String? phoneNumberValidator(String value){
+    if(value.isEmpty){
+      return "This field must be filled";
+    } else if(!value.isPhoneNumber){
+      return "You must enter a right phone number";
+    }
+
+    return null;
+  }
+
+  bool validateAndSave() {
+    final FormState? form = formKey.currentState;
+    if (form!.validate()) {
+      return true;
+    }
+    return false;
+  }
+
 }

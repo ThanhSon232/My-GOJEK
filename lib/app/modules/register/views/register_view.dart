@@ -67,15 +67,20 @@ class RegisterView extends GetView<RegisterController> {
                     const SizedBox(
                       width: 5,
                     ),
-                    Flexible(
-                      child: TextFormField(
-                        onSaved: (value) {
-                        },
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                        decoration: const InputDecoration(
-                            hintText: '123xxxxxxx'),
+                    Form(
+                      key: controller.formKey,
+                      child: Flexible(
+                        child: TextFormField(
+                          controller: controller.phoneNumberController,
+                          validator: (value) => controller.phoneNumberValidator(value!),
+                          onSaved: (value) {
+                          },
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          decoration: const InputDecoration(
+                              hintText: '123xxxxxxx'),
+                        ),
                       ),
                     ),
                   ],
@@ -89,7 +94,9 @@ class RegisterView extends GetView<RegisterController> {
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: ElevatedButton(
               onPressed: (){
-                Get.toNamed(Routes.PASSWORD);
+                if(controller.validateAndSave()){
+                  Get.toNamed(Routes.PASSWORD);
+                }
               },
               style: ElevatedButton.styleFrom(primary: Colors.green),
               child: const Text("Continue"),

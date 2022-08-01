@@ -16,10 +16,14 @@ import '../modules/password_login/bindings/password_login_binding.dart';
 import '../modules/password_login/views/password_login_view.dart';
 import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
+import '../modules/request/bindings/request_binding.dart';
+import '../modules/request/views/request_view.dart';
 import '../modules/set_up_profile/bindings/set_up_profile_binding.dart';
 import '../modules/set_up_profile/views/set_up_profile_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
+import '../modules/user/bindings/user_binding.dart';
+import '../modules/user/views/user_view.dart';
 import '../modules/vehicle_registration/bindings/vehicle_registration_binding.dart';
 import '../modules/vehicle_registration/views/vehicle_registration_view.dart';
 import '../modules/welcome/bindings/welcome_binding.dart';
@@ -67,6 +71,11 @@ class AppPages {
       name: _Paths.VEHICLE_REGISTRATION,
       page: () => const VehicleRegistrationView(),
       binding: VehicleRegistrationBinding(),
+      bindings: [
+        RegisterBinding(),
+        PasswordBinding(),
+        SetUpProfileBinding(),
+      ]
     ),
     GetPage(
       name: _Paths.BANK_REGISTRATION,
@@ -92,6 +101,16 @@ class AppPages {
       name: _Paths.INCOME,
       page: () => const IncomeView(),
       binding: IncomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.USER,
+      page: () => const UserView(),
+      binding: UserBinding(),
+    ),
+    GetPage(
+      name: _Paths.REQUEST,
+      page: () => const RequestView(),
+      binding: RequestBinding(),
     ),
   ];
 }

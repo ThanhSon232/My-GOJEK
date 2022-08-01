@@ -60,15 +60,20 @@ class LoginView extends GetView<LoginController> {
                 const SizedBox(
                   width: 5,
                 ),
-                Flexible(
-                  child: TextFormField(
-                    onSaved: (value) {
-                    },
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly
-                    ],
-                    decoration: const InputDecoration(
-                        hintText: '123xxxxxxx'),
+                Form(
+                  key: controller.formKey,
+                  child: Flexible(
+                    child: TextFormField(
+                      controller: controller.phoneNumberController,
+                      validator: (value) => controller.phoneNumberValidator(value!),
+                      onSaved: (value) {
+                      },
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
+                      decoration: const InputDecoration(
+                          hintText: '123xxxxxxx'),
+                    ),
                   ),
                 ),
               ],
@@ -81,7 +86,9 @@ class LoginView extends GetView<LoginController> {
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
           child: ElevatedButton(
             onPressed: () {
-              Get.toNamed(Routes.PASSWORD_LOGIN);
+              if(controller.validateAndSave()) {
+                Get.toNamed(Routes.PASSWORD_LOGIN);
+              }
             },
             style: ElevatedButton.styleFrom(
               primary: Colors.green,

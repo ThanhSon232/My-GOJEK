@@ -23,78 +23,77 @@ class SetUpProfileView extends GetView<SetUpProfileController> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-          appBar: AppBar(
-            leading: IconButton(
-              icon: const Icon(
-                Icons.arrow_back,
-                color: Colors.grey,
-              ),
-              onPressed: () {
-                Get.back();
-              },
+        appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.grey,
             ),
-            title: Text(
-              "Set up your profile",
-              style: textTheme.headline1,
-            ),
-            elevation: 1,
-            bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(120),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "You'll register as a:",
-                      style: textTheme.headline2!
-                          .copyWith(fontWeight: FontWeight.bold),
-                    ),
-                    h_20,
-                    Obx(
-                      () => ListTile(
-                        leading: Image.asset(
-                          controller
-                              .vehicles[controller.selectedIndex.value].img,
-                          height: 50,
-                        ),
-                        title: Text(
-                          controller
-                              .vehicles[controller.selectedIndex.value].name,
-                          style: textTheme.headline2!
-                              .copyWith(fontWeight: FontWeight.bold),
-                        ),
-                        trailing: SizedBox(
-                            height: 50,
-                            child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    primary: Colors.white,
-                                    shape: const StadiumBorder(
-                                        side: BorderSide(color: Colors.green))),
-                                onPressed: () {
-                                  Get.bottomSheet(
-                                    bottomSheet(textTheme: textTheme),
-                                    isDismissible: true,
-                                  );
-                                },
-                                child: Text(
-                                  "Change",
-                                  style: textTheme.headline2!.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.green),
-                                ))),
+            onPressed: () {
+              Get.back();
+            },
+          ),
+          title: Text(
+            "Set up your profile",
+            style: textTheme.headline1,
+          ),
+          elevation: 1,
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(120),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "You'll register as a:",
+                    style: textTheme.headline2!
+                        .copyWith(fontWeight: FontWeight.bold),
+                  ),
+                  h_20,
+                  Obx(
+                    () => ListTile(
+                      leading: Image.asset(
+                        controller.vehicles[controller.selectedIndex.value].img,
+                        height: 50,
                       ),
-                    )
-                  ],
-                ),
+                      title: Text(
+                        controller
+                            .vehicles[controller.selectedIndex.value].name,
+                        style: textTheme.headline2!
+                            .copyWith(fontWeight: FontWeight.bold),
+                      ),
+                      trailing: SizedBox(
+                          height: 50,
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  primary: Colors.white,
+                                  shape: const StadiumBorder(
+                                      side: BorderSide(color: Colors.green))),
+                              onPressed: () {
+                                Get.bottomSheet(
+                                  bottomSheet(textTheme: textTheme),
+                                  isDismissible: true,
+                                );
+                              },
+                              child: Text(
+                                "Change",
+                                style: textTheme.headline2!.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.green),
+                              ))),
+                    ),
+                  )
+                ],
               ),
             ),
           ),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20),
+        ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20),
+            child: Form(
+              key: controller.formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -136,8 +135,12 @@ class SetUpProfileView extends GetView<SetUpProfileController> {
                     ),
                   ),
                   h_10,
-                  titleAndText(title: "Full Name", hint: "e.g. Adit Brahmana", textTheme: textTheme),
-
+                  titleAndText(
+                      title: "Full Name",
+                      hint: "e.g. Adit Brahmana",
+                      textTheme: textTheme,
+                      controller: controller.nameController,
+                      validator: (value) => controller.nameValidator(value!)),
                   h_20,
                   Text(
                     "Contact",
@@ -176,7 +179,8 @@ class SetUpProfileView extends GetView<SetUpProfileController> {
                       ),
                       Flexible(
                         child: TextFormField(
-                          onSaved: (value) {},
+                          controller: controller.phoneNumberController,
+                          validator: (value) => controller.phoneNumberValidator(value!),
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly
                           ],
@@ -187,26 +191,49 @@ class SetUpProfileView extends GetView<SetUpProfileController> {
                     ],
                   ),
                   h_20,
-                  titleAndText(title: "Email Address", hint: "Only gmail Ids are accepted", textTheme: textTheme),
+                  titleAndText(
+                      title: "Email Address",
+                      hint: "Only gmail Ids are accepted",
+                      controller: controller.emailController,
+                      validator: (value) => controller.emailValidator(value!),
+                      textTheme: textTheme),
                   h_20,
-                  titleAndText(title: "Current Address", hint: "Enter your current address", textTheme: textTheme),
+                  titleAndText(
+                      title: "Current Address",
+                      hint: "Enter your current address",
+                      controller: controller.addressController,
+                      validator: (value) => controller.addressValidator(value!),
+                      textTheme: textTheme),
                   h_20,
-                  titleAndText(title: "Citizen ID", hint: "Enter your citizen ID", textTheme: textTheme),
+                  titleAndText(
+                      title: "Citizen ID",
+                      hint: "Enter your citizen ID",
+                      controller: controller.idController,
+                      validator: (value) => controller.idValidator(value!),
+                      textTheme: textTheme),
                   h_20,
-                  titleAndText(title: "Driver license ID", hint: "Enter your driver license ID", textTheme: textTheme),
+                  titleAndText(
+                      title: "Driver license ID",
+                      hint: "Enter your driver license ID",
+                      controller: controller.driverLicenseController,
+                      validator: (value) => controller.driverLicenseValidator(value!),
+                      textTheme: textTheme),
                 ],
               ),
             ),
           ),
+        ),
         bottomNavigationBar: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
             child: ElevatedButton(
               onPressed: () {
-                Get.toNamed(Routes.VEHICLE_REGISTRATION);
+                if(controller.validateAndSave()){
+                  Get.toNamed(Routes.VEHICLE_REGISTRATION);
+                }
               },
               style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
+                primary: Colors.green,
               ),
               child: const Padding(
                 padding: EdgeInsets.all(15),
@@ -305,7 +332,12 @@ class SetUpProfileView extends GetView<SetUpProfileController> {
         ));
   }
 
-  Widget titleAndText({required String title, required String hint,required TextTheme textTheme, TextEditingController? controller}){
+  Widget titleAndText(
+      {required String title,
+      required String hint,
+      required TextTheme textTheme,
+      TextEditingController? controller,
+        String? Function(String?)? validator}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -313,11 +345,14 @@ class SetUpProfileView extends GetView<SetUpProfileController> {
           title,
           style: textTheme.headline2,
         ),
-        const SizedBox(height: 10,),
+        const SizedBox(
+          height: 10,
+        ),
         TextFormField(
+          controller: controller,
+          validator: (value) => validator != null ? validator(value) : null,
           onSaved: (value) {},
           inputFormatters: [],
-          obscureText: true,
           decoration: InputDecoration(hintText: hint),
         ),
       ],
