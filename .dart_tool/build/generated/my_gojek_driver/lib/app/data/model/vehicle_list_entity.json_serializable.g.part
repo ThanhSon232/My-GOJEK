@@ -1,0 +1,25 @@
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+VehicleListEntity _$VehicleListEntityFromJson(Map<String, dynamic> json) =>
+    VehicleListEntity(
+      licensePlateNum: json['licensePlateNum'] as String?,
+      driverId: json['driverId'] as int?,
+      ownername: json['ownername'] as String?,
+      typeOfVehicle: json['typeOfVehicle'] as String?,
+      conditionVehicle: json['conditionVehicle'] as String?,
+      brand: json['brand'] as String?,
+      status: json['status'] as String?,
+    );
+
+Map<String, dynamic> _$VehicleListEntityToJson(VehicleListEntity instance) =>
+    <String, dynamic>{
+      'licensePlateNum': instance.licensePlateNum,
+      'driverId': instance.driverId,
+      'ownername': instance.ownername,
+      'typeOfVehicle': instance.typeOfVehicle,
+      'conditionVehicle': instance.conditionVehicle,
+      'brand': instance.brand,
+      'status': instance.status,
+    };

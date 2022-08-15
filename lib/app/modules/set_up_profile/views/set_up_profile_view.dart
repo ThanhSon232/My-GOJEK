@@ -223,23 +223,20 @@ class SetUpProfileView extends GetView<SetUpProfileController> {
             ),
           ),
         ),
-        bottomNavigationBar: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-            child: ElevatedButton(
-              onPressed: () {
-                if(controller.validateAndSave()){
-                  Get.toNamed(Routes.VEHICLE_REGISTRATION);
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Colors.green,
-              ),
-              child: const Padding(
-                padding: EdgeInsets.all(15),
-                child: Text("Confirm"),
-              ),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+          child: ElevatedButton(
+            onPressed: () async{
+              var check = await controller.validateAndSave();
+              if(check){
+                Get.toNamed(Routes.VEHICLE_REGISTRATION);
+              }
+            },
+            style: ElevatedButton.styleFrom(
+              primary: Colors.green,
             ),
+            child:  Obx(()=> Padding(padding: const EdgeInsets.symmetric(vertical: 20), child: controller.isLoading.value ? const CircularProgressIndicator(color: Colors.white,) : const Text("Continue"),)),
+
           ),
         ),
       ),

@@ -1,0 +1,34 @@
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+DriverEntity _$DriverEntityFromJson(Map<String, dynamic> json) => DriverEntity(
+      driverId: json['driverId'] as int?,
+      username: json['username'] as String?,
+      fullname: json['fullname'] as String?,
+      phone: json['phone'] as String?,
+      address: json['address'] as String?,
+      email: json['email'] as String?,
+      gender: json['gender'] as String?,
+      driverLicenseId: json['driverLicenseId'] as String?,
+      driverCitizenId: json['driverCitizenId'] as String?,
+      status: json['status'] as String?,
+      vehicleList: (json['vehicleList'] as List<dynamic>?)
+          ?.map((e) => VehicleListEntity.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$DriverEntityToJson(DriverEntity instance) =>
+    <String, dynamic>{
+      'driverId': instance.driverId,
+      'username': instance.username,
+      'fullname': instance.fullname,
+      'address': instance.address,
+      'phone': instance.phone,
+      'email': instance.email,
+      'driverLicenseId': instance.driverLicenseId,
+      'driverCitizenId': instance.driverCitizenId,
+      'gender': instance.gender,
+      'status': instance.status,
+      'vehicleList': instance.vehicleList,
+    };

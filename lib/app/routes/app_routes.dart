@@ -17,6 +17,7 @@ abstract class Routes {
   static const INCOME = _Paths.INCOME;
   static const USER = _Paths.USER;
   static const REQUEST = _Paths.REQUEST;
+  static const OTP = _Paths.OTP;
 }
 
 abstract class _Paths {
@@ -35,4 +36,5 @@ abstract class _Paths {
   static const INCOME = '/income';
   static const USER = '/user';
   static const REQUEST = '/request';
+  static const OTP = '/otp';
 }

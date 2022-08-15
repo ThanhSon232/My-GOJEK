@@ -10,6 +10,8 @@ import '../modules/income/bindings/income_binding.dart';
 import '../modules/income/views/income_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/otp/bindings/otp_binding.dart';
+import '../modules/otp/views/otp_view.dart';
 import '../modules/password/bindings/password_binding.dart';
 import '../modules/password/views/password_view.dart';
 import '../modules/password_login/bindings/password_login_binding.dart';
@@ -43,10 +45,15 @@ class AppPages {
       binding: HomeBinding(),
     ),
     GetPage(
-      name: _Paths.SPLASH,
-      page: () => const SplashView(),
-      binding: SplashBinding(),
-    ),
+        name: _Paths.SPLASH,
+        page: () => const SplashView(),
+        binding: SplashBinding(),
+        bindings: [
+          DashboardPageBinding(),
+          WelcomeBinding(),
+          HomeBinding(),
+          IncomeBinding()
+        ]),
     GetPage(
       name: _Paths.WELCOME,
       page: () => const WelcomeView(),
@@ -68,15 +75,14 @@ class AppPages {
       binding: SetUpProfileBinding(),
     ),
     GetPage(
-      name: _Paths.VEHICLE_REGISTRATION,
-      page: () => const VehicleRegistrationView(),
-      binding: VehicleRegistrationBinding(),
-      bindings: [
-        RegisterBinding(),
-        PasswordBinding(),
-        SetUpProfileBinding(),
-      ]
-    ),
+        name: _Paths.VEHICLE_REGISTRATION,
+        page: () => const VehicleRegistrationView(),
+        binding: VehicleRegistrationBinding(),
+        bindings: [
+          RegisterBinding(),
+          PasswordBinding(),
+          SetUpProfileBinding(),
+        ]),
     GetPage(
       name: _Paths.BANK_REGISTRATION,
       page: () => const BankRegistrationView(),
@@ -111,6 +117,11 @@ class AppPages {
       name: _Paths.REQUEST,
       page: () => const RequestView(),
       binding: RequestBinding(),
+    ),
+    GetPage(
+      name: _Paths.OTP,
+      page: () => const OtpView(),
+      binding: OtpBinding(),
     ),
   ];
 }

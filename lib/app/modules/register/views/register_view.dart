@@ -67,19 +67,23 @@ class RegisterView extends GetView<RegisterController> {
                     const SizedBox(
                       width: 5,
                     ),
-                    Form(
-                      key: controller.formKey,
-                      child: Flexible(
-                        child: TextFormField(
-                          controller: controller.phoneNumberController,
-                          validator: (value) => controller.phoneNumberValidator(value!),
-                          onSaved: (value) {
-                          },
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly
-                          ],
-                          decoration: const InputDecoration(
-                              hintText: '123xxxxxxx'),
+                    Obx(() => Form(
+                        key: controller.formKey,
+                        child: Flexible(
+                          child: TextFormField(
+                            controller: controller.phoneNumberController,
+                            validator: (value) => controller.phoneNumberValidator(value!),
+                            onSaved: (value) {
+                            },
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
+                            decoration:  InputDecoration(
+                                hintText: '123xxxxxxx',
+                              errorText: controller.error.value
+
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -89,18 +93,18 @@ class RegisterView extends GetView<RegisterController> {
             ),
           ),
         ),
-        bottomNavigationBar: SafeArea(
-          child:Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: ElevatedButton(
-              onPressed: (){
-                if(controller.validateAndSave()){
-                  Get.toNamed(Routes.PASSWORD);
-                }
-              },
-              style: ElevatedButton.styleFrom(primary: Colors.green),
-              child: const Text("Continue"),
-            ),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          child: ElevatedButton(
+            onPressed: () async{
+              var check =  await controller.validateAndSave();
+
+              if(check){
+                Get.toNamed(Routes.OTP);
+              }
+            },
+            style: ElevatedButton.styleFrom(primary: Colors.green),
+            child:  Obx(()=> Padding(padding: const EdgeInsets.symmetric(vertical: 20), child: controller.isLoading.value ? const CircularProgressIndicator(color: Colors.white,) : const Text("Continue"),)),
           ),
         ),
       ),

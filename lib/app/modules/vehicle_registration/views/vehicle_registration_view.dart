@@ -91,19 +91,21 @@ class VehicleRegistrationView extends GetView<VehicleRegistrationController> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
             child: ElevatedButton(
-              onPressed: () {
-                if(controller.validateAndSave()){
+              onPressed: () async {
+                var check = await controller.validateAndSave();
+                await controller.register();
 
+                if(check){
+                  await controller.register();
+                  Get.snackbar("Register successfully", "You can access our system from now on",colorText: Colors.black,backgroundColor: Colors.grey[200] );
                 }
                 // Get.toNamed(Routes.HOME);
               },
               style: ElevatedButton.styleFrom(
                 primary: Colors.green,
               ),
-              child: const Padding(
-                padding: EdgeInsets.all(15),
-                child: Text("Confirm"),
-              ),
+              child:  Obx(()=> Padding(padding: const EdgeInsets.symmetric(vertical: 20), child: controller.isLoading.value ? const CircularProgressIndicator(color: Colors.white,) : const Text("Continue"),)),
+
             ),
           ),
         ),

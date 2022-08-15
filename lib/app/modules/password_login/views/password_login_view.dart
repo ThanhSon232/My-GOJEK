@@ -49,18 +49,15 @@ class PasswordLoginView extends GetView<PasswordLoginController> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
           child: ElevatedButton(
-            onPressed: () {
+            onPressed: () async{
               if(controller.validateAndSave()){
-                Get.offAllNamed(Routes.DASHBOARD_PAGE);
+                await controller.login();
               }
             },
             style: ElevatedButton.styleFrom(
               primary: Colors.green,
             ),
-            child: const Padding(
-              padding: EdgeInsets.all(15),
-              child: Text("Confirm"),
-            ),
+            child:   Obx(()=> Padding(padding: const EdgeInsets.symmetric(vertical: 20), child:  controller.isLoading.value ? const CircularProgressIndicator(color: Colors.white,) : const Text("Continue"),))
           ),
         ),
       ),    );

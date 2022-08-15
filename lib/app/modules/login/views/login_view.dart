@@ -63,16 +63,17 @@ class LoginView extends GetView<LoginController> {
                 Form(
                   key: controller.formKey,
                   child: Flexible(
-                    child: TextFormField(
-                      controller: controller.phoneNumberController,
-                      validator: (value) => controller.phoneNumberValidator(value!),
-                      onSaved: (value) {
-                      },
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly
-                      ],
-                      decoration: const InputDecoration(
-                          hintText: '123xxxxxxx'),
+                    child: Obx(() => TextFormField(
+                        controller: controller.phoneNumberController,
+                        validator: (value) => controller.phoneNumberValidator(value!),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        decoration:   InputDecoration(
+                          errorText: controller.error.value,
+                            hintText: '123xxxxxxx',
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -85,20 +86,18 @@ class LoginView extends GetView<LoginController> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
           child: ElevatedButton(
-            onPressed: () {
-              if(controller.validateAndSave()) {
+            onPressed: () async{
+              if(await controller.validateAndSave()) {
                 Get.toNamed(Routes.PASSWORD_LOGIN);
               }
             },
             style: ElevatedButton.styleFrom(
               primary: Colors.green,
             ),
-            child: const Padding(
-              padding: EdgeInsets.all(15),
-              child: Text("Confirm"),
-            ),
+            child:  Obx(()=> Padding(padding: const EdgeInsets.symmetric(vertical: 20), child: controller.isLoading.value ? const CircularProgressIndicator(color: Colors.white,) : const Text("Continue"),)),
           ),
-        ),
-      ),    );
+          ),
+      ),
+    );
   }
 }

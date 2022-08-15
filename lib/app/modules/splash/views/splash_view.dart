@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../dashboard_page/views/dashboard_page_view.dart';
 import '../../welcome/views/welcome_view.dart';
 import '../controllers/splash_controller.dart';
 
@@ -15,7 +16,7 @@ class SplashView extends GetView<SplashController> {
         duration: 3000,
         splash: Image.asset("assets/splash_logo.jpg"),
         splashIconSize: 150,
-        nextScreen: const WelcomeView(),
+        nextScreen: controller.isFirstTime ? const WelcomeView() : const DashboardPageView(),
         splashTransition: SplashTransition.fadeTransition,
       ),
     );

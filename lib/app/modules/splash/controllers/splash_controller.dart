@@ -1,12 +1,16 @@
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class SplashController extends GetxController {
   //TODO: Implement SplashController
-
+  var isFirstTime = true;
   final count = 0.obs;
   @override
-  void onInit() {
+  void onInit() async{
     super.onInit();
+    var box = await Hive.openBox("box");
+    print(await box.get("notFirstTime"));
+    isFirstTime = await box.get("notFirstTime") ?? true;
   }
 
   @override

@@ -1,27 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_gojek_driver/app/data/api_handler.dart';
 
 import '../../../data/vehicle.dart';
 
 class SetUpProfileController extends GetxController {
   //TODO: Implement SetUpProfileController
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  APIHandlerImp apiHandlerImp = APIHandlerImp();
+  var isLoading = false.obs;
 
   List<Vehicle> vehicles = [
     Vehicle(
         name: "Bike driver",
+        type: "MOTORBIKE",
         description: "Get orders for ride, food, and send.",
         img: "assets/vehicleIcon/bike.png"),
     Vehicle(
         name: "Car4S",
+        type: "CAR4S",
         description: "Get orders for Cars4S",
         img: "assets/vehicleIcon/car.png"),
     Vehicle(
         name: "Car7S",
+        type: "CAR7S",
         description: "Get orders for Cars7S",
         img: "assets/vehicleIcon/car.png"),
     Vehicle(
         name: "Car16S",
+        type: "CAR16S",
         description: "Get orders for Cars16S",
         img: "assets/vehicleIcon/car.png"),
   ];
@@ -84,12 +91,32 @@ class SetUpProfileController extends GetxController {
   TextEditingController driverLicenseController = TextEditingController();
   TextEditingController addressController = TextEditingController();
 
-  bool validateAndSave() {
-    final FormState? form = formKey.currentState;
-    if (form!.validate()) {
-      return true;
+  Future<bool> validateAndSave() async{
+    isLoading.value = true;
+    final isValid = formKey.currentState!.validate();
+    if (!isValid) {
+      isLoading.value = false;
+      return false;
     }
-    return false;
+
+    var response = await apiHandlerImp.post({
+      "phoneNumber": phoneNumberController.text,
+      "email": emailController.text,
+      "driverName": nameController.text,
+      "gender": defaultGender.value ? "Male" : "Female",
+      "driverAddress": addressController.text,
+      "citizenId": idController.text,
+      "driverLicenseId": driverLicenseController.text
+    }, "driver/checkDriverInfo");
+
+    if(!response.data["status"]){
+      print(response.data["data"]);
+      isLoading.value = false;
+      return false;
+    }
+
+    isLoading.value = false;
+    return true;
   }
 
   @override

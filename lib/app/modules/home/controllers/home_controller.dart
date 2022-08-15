@@ -37,37 +37,23 @@ class HomeController extends GetxController {
   void insertOverlay(
       {required BuildContext context, required UserResponse? userResponse}) {
     overlayState = Overlay.of(context);
-
-    // overlayEntry = OverlayEntry(builder: (context) {
-    //   return ConfirmOrder(
-    //     userResponse: userResponse!,
-    //     onStart: (Timer timer) {
-    //       timer = Timer.periodic(const Duration(seconds: 5), (Timer t) async {
-    //         position.value = await map.getCurrentPosition();
-    //         await FirebaseDatabase.instance
-    //             .ref(
-    //                 "MOTORBIKE/${userResponse.startAddress!.latitude!.toStringAsFixed(2).replaceFirst(".", ",")}/${userResponse.startAddress!.longitude!.toStringAsFixed(2).replaceFirst(".", ",")}/request/224/driver/15")
-    //             .set({
-    //           "position": {
-    //             "lat": position["latitude"],
-    //             "long": position["longitude"]
-    //           }
-    //         });
-    //       });
-    //     },
-    //     onTrip: (Timer timer) {
-    //       timer.cancel();
-    //     },
-    //   );
-    // });
+    isAccepted.value = true;
 
     overlayEntry = OverlayEntry(builder: (context) {
-      return OrderInformation(
-        onPressed: () {
-          if (overlayEntry != null) {
-            isAccepted.value = false;
-            overlayEntry!.remove();
-          }
+      return OrderInformation(userResponse: userResponse!,
+        onStart: (Timer? timer) {
+          timer = Timer.periodic(const Duration(seconds: 5), (Timer t) async {
+            position.value = await map.getCurrentPosition();
+            await FirebaseDatabase.instance
+                .ref(
+                "MOTORBIKE/${userResponse?.startAddress!.latitude!.toStringAsFixed(2).replaceFirst(".", ",")}/${userResponse?.startAddress!.longitude!.toStringAsFixed(2).replaceFirst(".", ",")}/request/464/driver/15")
+                .set({
+              "position": {
+                "lat": position["latitude"],
+                "long": position["longitude"]
+              }
+            });
+          });
         },
       );
     });

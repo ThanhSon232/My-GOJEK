@@ -65,141 +65,152 @@
 41        android:debuggable="true"
 42        android:icon="@mipmap/ic_launcher"
 43        android:label="my_gojek_driver" >
-44
-45        <!-- &lt;!&ndash; Provide required visibility configuration for API level 30 and above &ndash;&gt; -->
-46        <!-- <queries> -->
-47        <!-- &lt;!&ndash; If your app checks for SMS support &ndash;&gt; -->
-48        <!-- <intent> -->
-49        <!-- <action android:name="android.intent.action.VIEW" /> -->
-50        <!-- <data android:scheme="sms" /> -->
-51        <!-- </intent> -->
-52        <!-- &lt;!&ndash; If your app checks for call support &ndash;&gt; -->
-53        <!-- <intent> -->
-54        <!-- <action android:name="android.intent.action.VIEW" /> -->
-55        <!-- <data android:scheme="tel" /> -->
-56        <!-- </intent> -->
-57        <!-- </queries> -->
-58        <activity
-59            android:name="com.example.my_gojek_driver.MainActivity"
-60            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-61            android:exported="true"
-62            android:hardwareAccelerated="true"
-63            android:launchMode="singleTop"
-64            android:theme="@style/LaunchTheme"
-65            android:windowSoftInputMode="adjustResize" >
-66
-67            <!--
-68                 Specifies an Android theme to apply to this Activity as soon as
-69                 the Android process has started. This theme is visible to the user
-70                 while the Flutter UI initializes. After that, this theme continues
-71                 to determine the Window background behind the Flutter UI.
-72            -->
-73            <meta-data
-74                android:name="io.flutter.embedding.android.NormalTheme"
-75                android:resource="@style/NormalTheme" />
-76
-77            <intent-filter>
-78                <action android:name="android.intent.action.MAIN" />
+44        <activity
+45            android:name="com.example.my_gojek_driver.MainActivity"
+46            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+47            android:exported="true"
+48            android:hardwareAccelerated="true"
+49            android:launchMode="singleTop"
+50            android:theme="@style/LaunchTheme"
+51            android:windowSoftInputMode="adjustResize" >
+52
+53            <!--
+54                 Specifies an Android theme to apply to this Activity as soon as
+55                 the Android process has started. This theme is visible to the user
+56                 while the Flutter UI initializes. After that, this theme continues
+57                 to determine the Window background behind the Flutter UI.
+58            -->
+59            <meta-data
+60                android:name="io.flutter.embedding.android.NormalTheme"
+61                android:resource="@style/NormalTheme" />
+62
+63            <intent-filter>
+64                <action android:name="android.intent.action.MAIN" />
+65
+66                <category android:name="android.intent.category.LAUNCHER" />
+67            </intent-filter>
+68        </activity>
+69        <!--
+70             Don't delete the meta-data below.
+71             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+72        -->
+73        <meta-data
+74            android:name="flutterEmbedding"
+75            android:value="2" />
+76        <meta-data
+77            android:name="com.google.android.geo.API_KEY"
+78            android:value="AIzaSyCsTsN2T8xfPUzV7-6RQNEHHcfxp2YdD6M" />
 79
-80                <category android:name="android.intent.category.LAUNCHER" />
-81            </intent-filter>
-82        </activity>
-83        <!--
-84             Don't delete the meta-data below.
-85             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
-86        -->
-87        <meta-data
-88            android:name="flutterEmbedding"
-89            android:value="2" />
-90        <meta-data
-91            android:name="com.google.android.geo.API_KEY"
-92            android:value="AIzaSyCsTsN2T8xfPUzV7-6RQNEHHcfxp2YdD6M" />
-93
+80        <service
+80-->[:firebase_database] /Users/thanhson/Documents/GitHub/my_gojek_driver/build/firebase_database/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-14:19
+81            android:name="com.google.firebase.components.ComponentDiscoveryService"
+81-->[:firebase_database] /Users/thanhson/Documents/GitHub/my_gojek_driver/build/firebase_database/intermediates/merged_manifest/debug/AndroidManifest.xml:10:18-89
+82            android:directBootAware="true"
+82-->[com.google.firebase:firebase-common:20.1.1] /Users/thanhson/.gradle/caches/transforms-3/fccaa6a289edc53f66333a729d5bb147/transformed/jetified-firebase-common-20.1.1/AndroidManifest.xml:35:13-43
+83            android:exported="false" >
+83-->[com.google.firebase:firebase-database:20.0.5] /Users/thanhson/.gradle/caches/transforms-3/f87e0f62127006dc791c32fcca28ed88/transformed/jetified-firebase-database-20.0.5/AndroidManifest.xml:31:13-37
+84            <meta-data
+84-->[:firebase_database] /Users/thanhson/Documents/GitHub/my_gojek_driver/build/firebase_database/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-13:85
+85                android:name="com.google.firebase.components:io.flutter.plugins.firebase.database.FlutterFirebaseAppRegistrar"
+85-->[:firebase_database] /Users/thanhson/Documents/GitHub/my_gojek_driver/build/firebase_database/intermediates/merged_manifest/debug/AndroidManifest.xml:12:17-127
+86                android:value="com.google.firebase.components.ComponentRegistrar" />
+86-->[:firebase_database] /Users/thanhson/Documents/GitHub/my_gojek_driver/build/firebase_database/intermediates/merged_manifest/debug/AndroidManifest.xml:13:17-82
+87            <meta-data
+87-->[:firebase_core] /Users/thanhson/Documents/GitHub/my_gojek_driver/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-13:85
+88                android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseCoreRegistrar"
+88-->[:firebase_core] /Users/thanhson/Documents/GitHub/my_gojek_driver/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:12:17-124
+89                android:value="com.google.firebase.components.ComponentRegistrar" />
+89-->[:firebase_core] /Users/thanhson/Documents/GitHub/my_gojek_driver/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:13:17-82
+90            <meta-data
+90-->[com.google.firebase:firebase-database:20.0.5] /Users/thanhson/.gradle/caches/transforms-3/f87e0f62127006dc791c32fcca28ed88/transformed/jetified-firebase-database-20.0.5/AndroidManifest.xml:32:13-34:85
+91                android:name="com.google.firebase.components:com.google.firebase.database.DatabaseRegistrar"
+91-->[com.google.firebase:firebase-database:20.0.5] /Users/thanhson/.gradle/caches/transforms-3/f87e0f62127006dc791c32fcca28ed88/transformed/jetified-firebase-database-20.0.5/AndroidManifest.xml:33:17-109
+92                android:value="com.google.firebase.components.ComponentRegistrar" />
+92-->[com.google.firebase:firebase-database:20.0.5] /Users/thanhson/.gradle/caches/transforms-3/f87e0f62127006dc791c32fcca28ed88/transformed/jetified-firebase-database-20.0.5/AndroidManifest.xml:34:17-82
+93        </service>
 94        <service
-94-->[:firebase_database] /Users/thanhson/Documents/GitHub/my_gojek_driver/build/firebase_database/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-14:19
-95            android:name="com.google.firebase.components.ComponentDiscoveryService"
-95-->[:firebase_database] /Users/thanhson/Documents/GitHub/my_gojek_driver/build/firebase_database/intermediates/merged_manifest/debug/AndroidManifest.xml:10:18-89
-96            android:directBootAware="true"
-96-->[com.google.firebase:firebase-common:20.1.1] /Users/thanhson/.gradle/caches/transforms-3/fccaa6a289edc53f66333a729d5bb147/transformed/jetified-firebase-common-20.1.1/AndroidManifest.xml:35:13-43
-97            android:exported="false" >
-97-->[com.google.firebase:firebase-database:20.0.5] /Users/thanhson/.gradle/caches/transforms-3/f87e0f62127006dc791c32fcca28ed88/transformed/jetified-firebase-database-20.0.5/AndroidManifest.xml:31:13-37
-98            <meta-data
-98-->[:firebase_database] /Users/thanhson/Documents/GitHub/my_gojek_driver/build/firebase_database/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-13:85
-99                android:name="com.google.firebase.components:io.flutter.plugins.firebase.database.FlutterFirebaseAppRegistrar"
-99-->[:firebase_database] /Users/thanhson/Documents/GitHub/my_gojek_driver/build/firebase_database/intermediates/merged_manifest/debug/AndroidManifest.xml:12:17-127
-100                android:value="com.google.firebase.components.ComponentRegistrar" />
-100-->[:firebase_database] /Users/thanhson/Documents/GitHub/my_gojek_driver/build/firebase_database/intermediates/merged_manifest/debug/AndroidManifest.xml:13:17-82
-101            <meta-data
-101-->[:firebase_core] /Users/thanhson/Documents/GitHub/my_gojek_driver/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-13:85
-102                android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseCoreRegistrar"
-102-->[:firebase_core] /Users/thanhson/Documents/GitHub/my_gojek_driver/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:12:17-124
-103                android:value="com.google.firebase.components.ComponentRegistrar" />
-103-->[:firebase_core] /Users/thanhson/Documents/GitHub/my_gojek_driver/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:13:17-82
-104            <meta-data
-104-->[com.google.firebase:firebase-database:20.0.5] /Users/thanhson/.gradle/caches/transforms-3/f87e0f62127006dc791c32fcca28ed88/transformed/jetified-firebase-database-20.0.5/AndroidManifest.xml:32:13-34:85
-105                android:name="com.google.firebase.components:com.google.firebase.database.DatabaseRegistrar"
-105-->[com.google.firebase:firebase-database:20.0.5] /Users/thanhson/.gradle/caches/transforms-3/f87e0f62127006dc791c32fcca28ed88/transformed/jetified-firebase-database-20.0.5/AndroidManifest.xml:33:17-109
-106                android:value="com.google.firebase.components.ComponentRegistrar" />
-106-->[com.google.firebase:firebase-database:20.0.5] /Users/thanhson/.gradle/caches/transforms-3/f87e0f62127006dc791c32fcca28ed88/transformed/jetified-firebase-database-20.0.5/AndroidManifest.xml:34:17-82
-107        </service>
-108        <service
-108-->[:geolocator_android] /Users/thanhson/Documents/GitHub/my_gojek_driver/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:12:9-16:56
-109            android:name="com.baseflow.geolocator.GeolocatorLocationService"
-109-->[:geolocator_android] /Users/thanhson/Documents/GitHub/my_gojek_driver/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-77
-110            android:enabled="true"
-110-->[:geolocator_android] /Users/thanhson/Documents/GitHub/my_gojek_driver/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:14:13-35
+94-->[:geolocator_android] /Users/thanhson/Documents/GitHub/my_gojek_driver/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:12:9-16:56
+95            android:name="com.baseflow.geolocator.GeolocatorLocationService"
+95-->[:geolocator_android] /Users/thanhson/Documents/GitHub/my_gojek_driver/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-77
+96            android:enabled="true"
+96-->[:geolocator_android] /Users/thanhson/Documents/GitHub/my_gojek_driver/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:14:13-35
+97            android:exported="false"
+97-->[:geolocator_android] /Users/thanhson/Documents/GitHub/my_gojek_driver/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:15:13-37
+98            android:foregroundServiceType="location" />
+98-->[:geolocator_android] /Users/thanhson/Documents/GitHub/my_gojek_driver/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:16:13-53
+99
+100        <uses-library
+100-->[androidx.window:window:1.0.0-beta04] /Users/thanhson/.gradle/caches/transforms-3/542a859793ec57d6a4d40865c7efc6d9/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:25:9-27:40
+101            android:name="androidx.window.extensions"
+101-->[androidx.window:window:1.0.0-beta04] /Users/thanhson/.gradle/caches/transforms-3/542a859793ec57d6a4d40865c7efc6d9/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:26:13-54
+102            android:required="false" />
+102-->[androidx.window:window:1.0.0-beta04] /Users/thanhson/.gradle/caches/transforms-3/542a859793ec57d6a4d40865c7efc6d9/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:27:13-37
+103        <uses-library
+103-->[androidx.window:window:1.0.0-beta04] /Users/thanhson/.gradle/caches/transforms-3/542a859793ec57d6a4d40865c7efc6d9/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:28:9-30:40
+104            android:name="androidx.window.sidecar"
+104-->[androidx.window:window:1.0.0-beta04] /Users/thanhson/.gradle/caches/transforms-3/542a859793ec57d6a4d40865c7efc6d9/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:29:13-51
+105            android:required="false" />
+105-->[androidx.window:window:1.0.0-beta04] /Users/thanhson/.gradle/caches/transforms-3/542a859793ec57d6a4d40865c7efc6d9/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:30:13-37
+106
+107        <provider
+107-->[com.google.firebase:firebase-common:20.1.1] /Users/thanhson/.gradle/caches/transforms-3/fccaa6a289edc53f66333a729d5bb147/transformed/jetified-firebase-common-20.1.1/AndroidManifest.xml:26:9-31:39
+108            android:name="com.google.firebase.provider.FirebaseInitProvider"
+108-->[com.google.firebase:firebase-common:20.1.1] /Users/thanhson/.gradle/caches/transforms-3/fccaa6a289edc53f66333a729d5bb147/transformed/jetified-firebase-common-20.1.1/AndroidManifest.xml:27:13-77
+109            android:authorities="com.example.my_gojek_driver.firebaseinitprovider"
+109-->[com.google.firebase:firebase-common:20.1.1] /Users/thanhson/.gradle/caches/transforms-3/fccaa6a289edc53f66333a729d5bb147/transformed/jetified-firebase-common-20.1.1/AndroidManifest.xml:28:13-72
+110            android:directBootAware="true"
+110-->[com.google.firebase:firebase-common:20.1.1] /Users/thanhson/.gradle/caches/transforms-3/fccaa6a289edc53f66333a729d5bb147/transformed/jetified-firebase-common-20.1.1/AndroidManifest.xml:29:13-43
 111            android:exported="false"
-111-->[:geolocator_android] /Users/thanhson/Documents/GitHub/my_gojek_driver/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:15:13-37
-112            android:foregroundServiceType="location" />
-112-->[:geolocator_android] /Users/thanhson/Documents/GitHub/my_gojek_driver/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:16:13-53
-113
-114        <uses-library
-114-->[androidx.window:window:1.0.0-beta04] /Users/thanhson/.gradle/caches/transforms-3/542a859793ec57d6a4d40865c7efc6d9/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:25:9-27:40
-115            android:name="androidx.window.extensions"
-115-->[androidx.window:window:1.0.0-beta04] /Users/thanhson/.gradle/caches/transforms-3/542a859793ec57d6a4d40865c7efc6d9/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:26:13-54
-116            android:required="false" />
-116-->[androidx.window:window:1.0.0-beta04] /Users/thanhson/.gradle/caches/transforms-3/542a859793ec57d6a4d40865c7efc6d9/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:27:13-37
-117        <uses-library
-117-->[androidx.window:window:1.0.0-beta04] /Users/thanhson/.gradle/caches/transforms-3/542a859793ec57d6a4d40865c7efc6d9/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:28:9-30:40
-118            android:name="androidx.window.sidecar"
-118-->[androidx.window:window:1.0.0-beta04] /Users/thanhson/.gradle/caches/transforms-3/542a859793ec57d6a4d40865c7efc6d9/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:29:13-51
-119            android:required="false" />
-119-->[androidx.window:window:1.0.0-beta04] /Users/thanhson/.gradle/caches/transforms-3/542a859793ec57d6a4d40865c7efc6d9/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:30:13-37
-120
-121        <provider
-121-->[com.google.firebase:firebase-common:20.1.1] /Users/thanhson/.gradle/caches/transforms-3/fccaa6a289edc53f66333a729d5bb147/transformed/jetified-firebase-common-20.1.1/AndroidManifest.xml:26:9-31:39
-122            android:name="com.google.firebase.provider.FirebaseInitProvider"
-122-->[com.google.firebase:firebase-common:20.1.1] /Users/thanhson/.gradle/caches/transforms-3/fccaa6a289edc53f66333a729d5bb147/transformed/jetified-firebase-common-20.1.1/AndroidManifest.xml:27:13-77
-123            android:authorities="com.example.my_gojek_driver.firebaseinitprovider"
-123-->[com.google.firebase:firebase-common:20.1.1] /Users/thanhson/.gradle/caches/transforms-3/fccaa6a289edc53f66333a729d5bb147/transformed/jetified-firebase-common-20.1.1/AndroidManifest.xml:28:13-72
-124            android:directBootAware="true"
-124-->[com.google.firebase:firebase-common:20.1.1] /Users/thanhson/.gradle/caches/transforms-3/fccaa6a289edc53f66333a729d5bb147/transformed/jetified-firebase-common-20.1.1/AndroidManifest.xml:29:13-43
-125            android:exported="false"
-125-->[com.google.firebase:firebase-common:20.1.1] /Users/thanhson/.gradle/caches/transforms-3/fccaa6a289edc53f66333a729d5bb147/transformed/jetified-firebase-common-20.1.1/AndroidManifest.xml:30:13-37
-126            android:initOrder="100" /> <!-- Needs to be explicitly declared on P+ -->
-126-->[com.google.firebase:firebase-common:20.1.1] /Users/thanhson/.gradle/caches/transforms-3/fccaa6a289edc53f66333a729d5bb147/transformed/jetified-firebase-common-20.1.1/AndroidManifest.xml:31:13-36
-127        <uses-library
-127-->[com.google.android.gms:play-services-maps:18.0.2] /Users/thanhson/.gradle/caches/transforms-3/95f836bc5966badd1250ea9af0d4d03d/transformed/jetified-play-services-maps-18.0.2/AndroidManifest.xml:39:9-41:40
-128            android:name="org.apache.http.legacy"
-128-->[com.google.android.gms:play-services-maps:18.0.2] /Users/thanhson/.gradle/caches/transforms-3/95f836bc5966badd1250ea9af0d4d03d/transformed/jetified-play-services-maps-18.0.2/AndroidManifest.xml:40:13-50
-129            android:required="false" />
-129-->[com.google.android.gms:play-services-maps:18.0.2] /Users/thanhson/.gradle/caches/transforms-3/95f836bc5966badd1250ea9af0d4d03d/transformed/jetified-play-services-maps-18.0.2/AndroidManifest.xml:41:13-37
-130
-131        <activity
-131-->[com.google.android.gms:play-services-base:18.0.1] /Users/thanhson/.gradle/caches/transforms-3/19fea4fb28dedd992824e13cc158e7a1/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:20:9-22:45
-132            android:name="com.google.android.gms.common.api.GoogleApiActivity"
-132-->[com.google.android.gms:play-services-base:18.0.1] /Users/thanhson/.gradle/caches/transforms-3/19fea4fb28dedd992824e13cc158e7a1/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:20:19-85
-133            android:exported="false"
-133-->[com.google.android.gms:play-services-base:18.0.1] /Users/thanhson/.gradle/caches/transforms-3/19fea4fb28dedd992824e13cc158e7a1/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:22:19-43
-134            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-134-->[com.google.android.gms:play-services-base:18.0.1] /Users/thanhson/.gradle/caches/transforms-3/19fea4fb28dedd992824e13cc158e7a1/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:21:19-78
-135
-136        <meta-data
-136-->[com.google.android.gms:play-services-basement:18.0.0] /Users/thanhson/.gradle/caches/transforms-3/19a0dfd4021b70333b258b23187eb758/transformed/jetified-play-services-basement-18.0.0/AndroidManifest.xml:21:9-23:69
-137            android:name="com.google.android.gms.version"
-137-->[com.google.android.gms:play-services-basement:18.0.0] /Users/thanhson/.gradle/caches/transforms-3/19a0dfd4021b70333b258b23187eb758/transformed/jetified-play-services-basement-18.0.0/AndroidManifest.xml:22:13-58
-138            android:value="@integer/google_play_services_version" />
-138-->[com.google.android.gms:play-services-basement:18.0.0] /Users/thanhson/.gradle/caches/transforms-3/19a0dfd4021b70333b258b23187eb758/transformed/jetified-play-services-basement-18.0.0/AndroidManifest.xml:23:13-66
-139    </application>
-140
-141</manifest>
+111-->[com.google.firebase:firebase-common:20.1.1] /Users/thanhson/.gradle/caches/transforms-3/fccaa6a289edc53f66333a729d5bb147/transformed/jetified-firebase-common-20.1.1/AndroidManifest.xml:30:13-37
+112            android:initOrder="100" /> <!-- Needs to be explicitly declared on P+ -->
+112-->[com.google.firebase:firebase-common:20.1.1] /Users/thanhson/.gradle/caches/transforms-3/fccaa6a289edc53f66333a729d5bb147/transformed/jetified-firebase-common-20.1.1/AndroidManifest.xml:31:13-36
+113        <uses-library
+113-->[com.google.android.gms:play-services-maps:18.0.2] /Users/thanhson/.gradle/caches/transforms-3/95f836bc5966badd1250ea9af0d4d03d/transformed/jetified-play-services-maps-18.0.2/AndroidManifest.xml:39:9-41:40
+114            android:name="org.apache.http.legacy"
+114-->[com.google.android.gms:play-services-maps:18.0.2] /Users/thanhson/.gradle/caches/transforms-3/95f836bc5966badd1250ea9af0d4d03d/transformed/jetified-play-services-maps-18.0.2/AndroidManifest.xml:40:13-50
+115            android:required="false" />
+115-->[com.google.android.gms:play-services-maps:18.0.2] /Users/thanhson/.gradle/caches/transforms-3/95f836bc5966badd1250ea9af0d4d03d/transformed/jetified-play-services-maps-18.0.2/AndroidManifest.xml:41:13-37
+116
+117        <activity
+117-->[com.google.android.gms:play-services-auth:20.1.0] /Users/thanhson/.gradle/caches/transforms-3/8e3010740483d75c161f46936cb6df5f/transformed/jetified-play-services-auth-20.1.0/AndroidManifest.xml:23:9-27:75
+118            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+118-->[com.google.android.gms:play-services-auth:20.1.0] /Users/thanhson/.gradle/caches/transforms-3/8e3010740483d75c161f46936cb6df5f/transformed/jetified-play-services-auth-20.1.0/AndroidManifest.xml:24:13-93
+119            android:excludeFromRecents="true"
+119-->[com.google.android.gms:play-services-auth:20.1.0] /Users/thanhson/.gradle/caches/transforms-3/8e3010740483d75c161f46936cb6df5f/transformed/jetified-play-services-auth-20.1.0/AndroidManifest.xml:25:13-46
+120            android:exported="false"
+120-->[com.google.android.gms:play-services-auth:20.1.0] /Users/thanhson/.gradle/caches/transforms-3/8e3010740483d75c161f46936cb6df5f/transformed/jetified-play-services-auth-20.1.0/AndroidManifest.xml:26:13-37
+121            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+121-->[com.google.android.gms:play-services-auth:20.1.0] /Users/thanhson/.gradle/caches/transforms-3/8e3010740483d75c161f46936cb6df5f/transformed/jetified-play-services-auth-20.1.0/AndroidManifest.xml:27:13-72
+122        <!--
+123            Service handling Google Sign-In user revocation. For apps that do not integrate with
+124            Google Sign-In, this service will never be started.
+125        -->
+126        <service
+126-->[com.google.android.gms:play-services-auth:20.1.0] /Users/thanhson/.gradle/caches/transforms-3/8e3010740483d75c161f46936cb6df5f/transformed/jetified-play-services-auth-20.1.0/AndroidManifest.xml:33:9-37:51
+127            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+127-->[com.google.android.gms:play-services-auth:20.1.0] /Users/thanhson/.gradle/caches/transforms-3/8e3010740483d75c161f46936cb6df5f/transformed/jetified-play-services-auth-20.1.0/AndroidManifest.xml:34:13-89
+128            android:exported="true"
+128-->[com.google.android.gms:play-services-auth:20.1.0] /Users/thanhson/.gradle/caches/transforms-3/8e3010740483d75c161f46936cb6df5f/transformed/jetified-play-services-auth-20.1.0/AndroidManifest.xml:35:13-36
+129            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION"
+129-->[com.google.android.gms:play-services-auth:20.1.0] /Users/thanhson/.gradle/caches/transforms-3/8e3010740483d75c161f46936cb6df5f/transformed/jetified-play-services-auth-20.1.0/AndroidManifest.xml:36:13-107
+130            android:visibleToInstantApps="true" />
+130-->[com.google.android.gms:play-services-auth:20.1.0] /Users/thanhson/.gradle/caches/transforms-3/8e3010740483d75c161f46936cb6df5f/transformed/jetified-play-services-auth-20.1.0/AndroidManifest.xml:37:13-48
+131
+132        <activity
+132-->[com.google.android.gms:play-services-base:18.0.1] /Users/thanhson/.gradle/caches/transforms-3/19fea4fb28dedd992824e13cc158e7a1/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:20:9-22:45
+133            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+133-->[com.google.android.gms:play-services-base:18.0.1] /Users/thanhson/.gradle/caches/transforms-3/19fea4fb28dedd992824e13cc158e7a1/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:20:19-85
+134            android:exported="false"
+134-->[com.google.android.gms:play-services-base:18.0.1] /Users/thanhson/.gradle/caches/transforms-3/19fea4fb28dedd992824e13cc158e7a1/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:22:19-43
+135            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+135-->[com.google.android.gms:play-services-base:18.0.1] /Users/thanhson/.gradle/caches/transforms-3/19fea4fb28dedd992824e13cc158e7a1/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:21:19-78
+136
+137        <meta-data
+137-->[com.google.android.gms:play-services-basement:18.0.0] /Users/thanhson/.gradle/caches/transforms-3/19a0dfd4021b70333b258b23187eb758/transformed/jetified-play-services-basement-18.0.0/AndroidManifest.xml:21:9-23:69
+138            android:name="com.google.android.gms.version"
+138-->[com.google.android.gms:play-services-basement:18.0.0] /Users/thanhson/.gradle/caches/transforms-3/19a0dfd4021b70333b258b23187eb758/transformed/jetified-play-services-basement-18.0.0/AndroidManifest.xml:22:13-58
+139            android:value="@integer/google_play_services_version" />
+139-->[com.google.android.gms:play-services-basement:18.0.0] /Users/thanhson/.gradle/caches/transforms-3/19a0dfd4021b70333b258b23187eb758/transformed/jetified-play-services-basement-18.0.0/AndroidManifest.xml:23:13-66
+140    </application>
+141
+142</manifest>

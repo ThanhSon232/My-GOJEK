@@ -1,18 +1,27 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+
+import '../../../data/user_response.dart';
 
 class OrderInformation extends StatelessWidget {
-  void Function()? onPressed;
-  void Function()? myLocationButton;
+  void Function(Timer?)? onStart;
+  void Function(Timer?)? onTrip;
+  final UserResponse userResponse;
 
-  OrderInformation({Key? key, this.onPressed, this.myLocationButton})
-      : super(key: key);
+  OrderInformation({Key? key, this.onStart, this.onTrip, required this.userResponse}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     var h = (size.height * 0.55).obs;
+    var text = "bắt đầu".obs;
+    Timer? timer;
+    final formatBalance = NumberFormat("#,##0", "vi_VN");
+
 
     return Obx(
       () => AnimatedPositioned(
@@ -32,6 +41,7 @@ class OrderInformation extends StatelessWidget {
             child: SafeArea(
               child: Scaffold(
                 body: SingleChildScrollView(
+                  physics: const NeverScrollableScrollPhysics(),
                   child: Column(
                     children: [
                       Container(
@@ -55,7 +65,7 @@ class OrderInformation extends StatelessWidget {
                           "Order by",
                           style: TextStyle(fontWeight: FontWeight.w700),
                         ),
-                        subtitle: Text("Trần Thanh Sơn"),
+                        subtitle: Text(userResponse.user!.fullName!),
                         trailing: IconButton(
                             icon: const Icon(
                               Icons.call,
@@ -63,7 +73,7 @@ class OrderInformation extends StatelessWidget {
                             ),
                             onPressed: () async {
                               await FlutterPhoneDirectCaller.callNumber(
-                                  "12345678");
+                                  userResponse.user!.phoneNumber!);
                             }),
                       ),
                       const Divider(
@@ -78,11 +88,11 @@ class OrderInformation extends StatelessWidget {
                         contentPadding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 15),
                         title: Text(
-                          "Bệnh viện đa khoa khu vực hóc môn",
+                          userResponse.startAddress!.address!,
                           style: TextStyle(fontWeight: FontWeight.w700),
                         ),
                         subtitle: Text(
-                            "65/2B Bà Triệu, TT.Hóc môn, Hóc môn, Thành Phố Hồ Chí Minh, Việt Nam"),
+                            userResponse.startAddress!.address!),
                       ),
                       ListTile(
                         leading: Image.asset(
@@ -92,15 +102,12 @@ class OrderInformation extends StatelessWidget {
                         contentPadding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 15),
                         title: Text(
-                          "Bệnh viện đa khoa khu vực hóc môn",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w700),
+                          userResponse.destination!.address!,
+                          style: TextStyle(fontWeight: FontWeight.w700),
                         ),
                         subtitle: Text(
-                            "65/2B Bà Triệu, TT.Hóc môn, Hóc môn, Thành Phố Hồ Chí Minh, Việt Nam"),
+                            userResponse.destination!.address!),
                       ),
-
-
                       Visibility(
                         visible: h.value == 0 ? true : false,
                         child: Column(
@@ -108,7 +115,6 @@ class OrderInformation extends StatelessWidget {
                             const SizedBox(
                               height: 20,
                             ),
-
                             const Divider(
                               height: 1,
                               color: Colors.black,
@@ -116,10 +122,9 @@ class OrderInformation extends StatelessWidget {
                             ListTile(
                               title: Text(
                                 "Tiền mặt",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold),
+                                style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                              trailing: Text("09123đ"),
+                              trailing: Text( "${formatBalance.format(double.parse(userResponse.vehicleAndPrice!.price!))}đ"),
                             ),
                             const SizedBox(
                               height: 20,
@@ -138,7 +143,18 @@ class OrderInformation extends StatelessWidget {
                   width: double.infinity,
                   margin: const EdgeInsets.symmetric(horizontal: 20),
                   child: ElevatedButton(
-                      onPressed: onPressed, child: Text("Start")),
+                      onPressed: () {
+                        switch (text.value) {
+                          case "bắt đầu":
+                            if (onStart != null) onStart!(timer!);
+                            text.value = "đã hoàn thành";
+                            break;
+                          case "đã hoàn thành":
+                            if (onTrip != null) onTrip!(timer!);
+                            break;
+                        }
+                      },
+                      child: Obx(() => Text(text.value))),
                 ),
               ),
             ),

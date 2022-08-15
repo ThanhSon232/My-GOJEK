@@ -24,7 +24,7 @@ class HomeView extends GetView<HomeController> {
                     child: CircularProgressIndicator(),
                   )
                 : GoogleMap(
-                    zoomControlsEnabled: true,
+                    zoomControlsEnabled: false,
                     myLocationButtonEnabled: false,
                     polylines: controller.polyline.toSet(),
                     myLocationEnabled: true,
@@ -88,12 +88,7 @@ class HomeView extends GetView<HomeController> {
                                 pageBuilder: (context, animation1, animation2) {
                                   return Container();
                                 });
-                          } else {
-                            controller.isAccepted.value = true;
-                            controller.insertOverlay(
-                                context: context,
-                                userResponse: controller.userResponse);
-                          }
+                          } else {}
                         },
                         child: Card(
                           margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -149,27 +144,30 @@ class HomeView extends GetView<HomeController> {
             ),
           ),
           Obx(
-            () => AnimatedPositioned(
+            () => Positioned.fill(
               bottom: !controller.isAccepted.value
                   ? Get.height * 0.03
-                  : Get.height * 0.31,
-              left: Get.width * 0.83,
-              duration: const Duration(milliseconds: 100),
-              child: FloatingActionButton(
-                  heroTag: "tag",
-                  backgroundColor: Colors.white,
-                  child: const Icon(
-                    Icons.location_on,
-                    color: Colors.black,
-                  ),
-                  onPressed: () {
-                    controller.googleMapController.animateCamera(
-                        CameraUpdate.newCameraPosition(CameraPosition(
-                      target: LatLng(controller.position["latitude"],
-                          controller.position["longitude"]),
-                      zoom: 14.44,
-                    )));
-                  }),
+                  : Get.height * 0.35,
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                alignment: Alignment.bottomRight,
+                child: FloatingActionButton(
+                    heroTag: "tag",
+                    backgroundColor: Colors.white,
+                    child: const Icon(
+                      Icons.location_on,
+                      color: Colors.black,
+                    ),
+                    onPressed: () {
+                      controller.googleMapController.animateCamera(
+                          CameraUpdate.newCameraPosition(CameraPosition(
+                        target: LatLng(controller.position["latitude"],
+                            controller.position["longitude"]),
+                        zoom: 14.44,
+                      )));
+                    }),
+              ),
             ),
           )
         ],
