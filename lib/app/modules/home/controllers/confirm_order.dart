@@ -124,7 +124,7 @@ class OrderInformation extends StatelessWidget {
                                 "Tiền mặt",
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                              trailing: Text( "${formatBalance.format(double.parse(userResponse.vehicleAndPrice!.price!))}đ"),
+                              trailing: Text( "${formatBalance.format(userResponse.vehicleAndPrice!.price!)}đ"),
                             ),
                             const SizedBox(
                               height: 20,

@@ -140,7 +140,7 @@ class User {
 }
 
 class VehicleAndPrice {
-  String? price;
+  int? price;
   String? vehicleType;
 
   VehicleAndPrice({this.price, this.vehicleType});
@@ -151,9 +151,9 @@ class VehicleAndPrice {
   }
 
   Map<dynamic,dynamic> toJson() {
-    final Map<dynamic,dynamic> data = new Map<dynamic,dynamic>();
-    data['price'] = this.price;
-    data['vehicleType'] = this.vehicleType;
+    final Map<dynamic,dynamic> data = Map<dynamic,dynamic>();
+    data['price'] = price;
+    data['vehicleType'] = vehicleType;
     return data;
   }
 }

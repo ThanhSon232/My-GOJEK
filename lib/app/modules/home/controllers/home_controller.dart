@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +39,7 @@ class HomeController extends GetxController {
   var text = "bắt đầu".obs;
   APIHandlerImp apiHandlerImp = APIHandlerImp();
   DriverEntity? driverEntity;
+  Queue<UserResponse> queue = Queue();
 
   void insertOverlay(
       {required BuildContext context, required UserResponse? userResponse}) {
@@ -48,18 +50,18 @@ class HomeController extends GetxController {
       return OrderInformation(
         userResponse: userResponse!,
         onStart: (Timer? timer) {
-          timer = Timer.periodic(const Duration(seconds: 5), (Timer t) async {
-            position.value = await map.getCurrentPosition();
-            await FirebaseDatabase.instance
-                .ref(
-                    "MOTORBIKE/${userResponse?.startAddress!.latitude!.toStringAsFixed(2).replaceFirst(".", ",")}/${userResponse?.startAddress!.longitude!.toStringAsFixed(2).replaceFirst(".", ",")}/request/464/driver/15")
-                .set({
-              "position": {
-                "lat": position["latitude"],
-                "long": position["longitude"]
-              }
-            });
-          });
+          // timer = Timer.periodic(const Duration(seconds: 5), (Timer t) async {
+          //   position.value = await map.getCurrentPosition();
+          //   await FirebaseDatabase.instance
+          //       .ref(
+          //           "MOTORBIKE/${userResponse?.startAddress!.latitude!.toStringAsFixed(2).replaceFirst(".", ",")}/${userResponse?.startAddress!.longitude!.toStringAsFixed(2).replaceFirst(".", ",")}/request/464/driver/15")
+          //       .set({
+          //     "position": {
+          //       "lat": position["latitude"],
+          //       "long": position["longitude"]
+          //     }
+          //   });
+          // });
         },
       );
     });
@@ -74,15 +76,16 @@ class HomeController extends GetxController {
         {"longitude": position["longitude"], "latitude": position["latitude"]},
         "driver/online");
 
-    
     listener = FirebaseDatabase.instance
         .ref(response.data["data"].toString().replaceFirst("DriverList", "Booking"))
-        .limitToFirst(1)
         .onChildAdded
         .listen((event) async {
+
       if (event.snapshot.exists) {
         var data = event.snapshot.value as Map;
-        var result = await Get.toNamed(Routes.REQUEST,arguments: {"key": event.snapshot.key});
+        // var response = UserResponse.fromJson(data);
+        // queue.add(response);
+        var result = await Get.toNamed(Routes.REQUEST,arguments: {"key": data});
         if (result == "true") {
           userResponse = UserResponse.fromJson(data);
           markers[const MarkerId("1")] = Marker(
@@ -129,7 +132,7 @@ class HomeController extends GetxController {
   Future<void> cancelStatus() async {
     isLoading.value = true;
     await apiHandlerImp.get("driver/offline", {});
-    // listener!.cancel();
+    listener!.cancel();
     isLoading.value = false;
   }
 

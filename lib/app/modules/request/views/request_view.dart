@@ -21,38 +21,39 @@ class RequestView extends GetView<RequestController> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(10),
-          child: Column(
-            children: [
-              customCard(textTheme: textTheme),
-              h_20,
-              Card(
-                color: Colors.grey[100],
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 20, horizontal: 10),
-                  child: Row(
-                    mainAxisAlignment:
-                    MainAxisAlignment
-                        .spaceBetween,
-                    children: [
-                      Text(
-                        "Income: ",
-                        style: textTheme.headline2!
-                            .copyWith(fontSize: 20),
-                      ),
-                      Text(
-                        "đ 28.000",
-                        style: textTheme.headline2!
-                            .copyWith(
-                            fontWeight:
-                            FontWeight.bold,
-                            fontSize: 20),
-                      )
-                    ],
+          child: Obx(() => controller.isLoading.value ? CircularProgressIndicator() : Column(
+              children: [
+                customCard(textTheme: textTheme),
+                h_20,
+                Card(
+                  color: Colors.grey[100],
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 20, horizontal: 10),
+                    child: Row(
+                      mainAxisAlignment:
+                      MainAxisAlignment
+                          .spaceBetween,
+                      children: [
+                        Text(
+                          "Income: ",
+                          style: textTheme.headline2!
+                              .copyWith(fontSize: 20),
+                        ),
+                        Text(
+                          "đ ${controller.data["vehicleAndPrice"]["price"].toString()}",
+                          style: textTheme.headline2!
+                              .copyWith(
+                              fontWeight:
+                              FontWeight.bold,
+                              fontSize: 20),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -143,9 +144,9 @@ class RequestView extends GetView<RequestController> {
           children: [
             address(
                 textTheme: textTheme,
-                title: "117 Nguyễn Đình Chiểu",
+                title: controller.data["startAddress"]["address"].toString().split(",")[0],
                 subtitle:
-                "117 Nguyễn Đình Chiểu, Phường 6, Quận 3, Hồ Chí Minh, VietNam",
+                controller.data["startAddress"]["address"],
                 isDes: false),
             Padding(
               padding: const EdgeInsets.only(left: 11),
@@ -155,9 +156,9 @@ class RequestView extends GetView<RequestController> {
             ),
             address(
                 textTheme: textTheme,
-                title: "117 Nguyễn Đình Chiểu",
+                title: controller.data["destination"]["address"].toString().split(",")[0],
                 subtitle:
-                "117 Nguyễn Đình Chiểu, Phường 6, Quận 3, Hồ Chí Minh, VietNam",
+                controller.data["destination"]["address"],
                 isDes: true),
             const SizedBox(
               height: 10,
@@ -171,7 +172,7 @@ class RequestView extends GetView<RequestController> {
                   padding:
                   const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                   child: Text(
-                    "Distance * 6.4km",
+                    "Distance * ${double.parse(controller.data["distanceAndTime"]["distance"].toString()).toStringAsFixed(2)}km",
                     style: textTheme.headline2!.copyWith(color: Colors.white),
                   )),
             ),
