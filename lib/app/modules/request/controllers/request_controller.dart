@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
+import 'package:my_gojek_driver/app/data/api_handler.dart';
 import 'package:my_gojek_driver/app/data/model/driver_entity.dart';
 import 'package:my_gojek_driver/app/modules/home/controllers/home_controller.dart';
 
@@ -12,34 +13,14 @@ class RequestController extends GetxController {
   final count = 10.obs;
   var data = {};
   var isLoading = false.obs;
+  APIHandlerImp apiHandlerImp = APIHandlerImp();
 
   Future<void> handleAccept() async {
-    var id = await Get.arguments["key"];
-    // await FirebaseDatabase.instance
-    //     .ref(
-    //       "MOTORBIKE/${double.parse(homeController.position["latitude"].toString()).toStringAsFixed(2).replaceFirst(".", ",")}/${double.parse(homeController.position["longitude"].toString()).toStringAsFixed(2).replaceFirst(".", ",")}/driverList/${homeController.driverEntity!.driverId}",
-    //     )
-    //     .remove();
-    //
-    // await FirebaseDatabase.instance
-    //     .ref(
-    //         "MOTORBIKE/${double.parse(homeController.position["latitude"].toString()).toStringAsFixed(2).replaceFirst(".", ",")}/${double.parse(homeController.position["longitude"].toString()).toStringAsFixed(2).replaceFirst(".", ",")}/request/$id/driver/${homeController.driverEntity!.driverId}")
-    //     .set({
-    //   "fullname": homeController.driverEntity!.fullname,
-    //   "phone": homeController.driverEntity!.phone,
-    //   "address": homeController.driverEntity!.address,
-    //   "email": homeController.driverEntity!.email,
-    //   "gender": homeController.driverEntity!.gender,
-    //   "vehicleList": [
-    //     {
-    //       "licensePlateNum":
-    //           homeController.driverEntity!.vehicleList!.first.licensePlateNum,
-    //       "typeOfVehicle": "MOTORBIKE",
-    //       "brand": homeController.driverEntity!.vehicleList!.first.brand
-    //     }
-    //   ]
-    // });
-    Get.back(result: "true");
+    var id = data["requestId"].toString();
+    Get.log(id);
+    var response = await apiHandlerImp.get("driver/acceptBooking/$id", {});
+    print(response);
+    Get.back(result: {"answer": true, "path": response.data["data"], "id": data["requestId"].toString()});
   }
 
   @override

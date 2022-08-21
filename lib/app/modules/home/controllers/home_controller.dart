@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:collection';
+import 'package:intl/intl.dart';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -39,29 +40,60 @@ class HomeController extends GetxController {
   var text = "bắt đầu".obs;
   APIHandlerImp apiHandlerImp = APIHandlerImp();
   DriverEntity? driverEntity;
-  Queue<UserResponse> queue = Queue();
+  Queue<Map<dynamic, dynamic>> queue = Queue();
+  String? id;
+  // var q = StreamQueue<>();
 
   void insertOverlay(
-      {required BuildContext context, required UserResponse? userResponse}) {
+      {required BuildContext context, required UserResponse? userResponse, required String path}) {
     overlayState = Overlay.of(context);
     isAccepted.value = true;
 
     overlayEntry = OverlayEntry(builder: (context) {
       return OrderInformation(
+        timer: Timer.periodic(const Duration(seconds: 5), (Timer t) async {
+          position.value = await map.getCurrentPosition();
+          await FirebaseDatabase.instance
+              .ref(
+              "$path/DriverAccept/position")
+              .set({
+            "lat": position["latitude"],
+            "long": position["longitude"]
+          });
+        }),
         userResponse: userResponse!,
-        onStart: (Timer? timer) {
-          // timer = Timer.periodic(const Duration(seconds: 5), (Timer t) async {
-          //   position.value = await map.getCurrentPosition();
-          //   await FirebaseDatabase.instance
-          //       .ref(
-          //           "MOTORBIKE/${userResponse?.startAddress!.latitude!.toStringAsFixed(2).replaceFirst(".", ",")}/${userResponse?.startAddress!.longitude!.toStringAsFixed(2).replaceFirst(".", ",")}/request/464/driver/15")
-          //       .set({
-          //     "position": {
-          //       "lat": position["latitude"],
-          //       "long": position["longitude"]
-          //     }
-          //   });
-          // });
+        onStart: (Timer timer) {
+
+        },
+        onTrip: (Timer timer, RxBool isLoading) async{
+          if (position["latitude"].toStringAsFixed(3) ==
+              userResponse.destination!.latitude!.toStringAsFixed(3) &&
+             position["longitude"].toStringAsFixed(3) ==
+                 userResponse.destination!.longitude!.toStringAsFixed(3)) {
+            isLoading.value = true;
+            timer.cancel();
+            var response = await apiHandlerImp.put({
+              "requestId": int.parse(id!),
+              "completeTime" : DateFormat("yyyy-MM-dd HH:mm:ss").format(DateTime.now())
+            },"driver/completeTrip");
+            overlayEntry!.remove();
+            reset();
+            Get.snackbar(
+              "Success","The trip was completed"
+            );
+            if(!timer.isActive){
+              var response_1 = await apiHandlerImp.post(
+                  {
+                    "longitude": position["longitude"],
+                    "latitude": position["latitude"]
+                  },
+                  "driver/online");
+            }
+
+            isLoading.value = false;
+
+
+          }
         },
       );
     });
@@ -72,43 +104,56 @@ class HomeController extends GetxController {
   Future<void> changeStatus(BuildContext context) async {
     isLoading.value = true;
     position.value = await map.getCurrentPosition();
-    var response = await apiHandlerImp.post(
-        {"longitude": position["longitude"], "latitude": position["latitude"]},
-        "driver/online");
+    try {
+      var response = await apiHandlerImp.post(
+          {
+            "longitude": position["longitude"],
+            "latitude": position["latitude"]
+          },
+          "driver/online");
 
-    listener = FirebaseDatabase.instance
-        .ref(response.data["data"].toString().replaceFirst("DriverList", "Booking"))
-        .onChildAdded
-        .listen((event) async {
+      listener = FirebaseDatabase.instance
+          .ref(response.data["data"]
+          .toString()
+          .replaceFirst("DriverList", "Booking"))
+          .onChildAdded
+          .listen((event) async {
+        if (event.snapshot.exists) {
+          var data = event.snapshot.value as Map;
+          if (data["driver"] == null) {
+            var result = await Get.toNamed(
+                Routes.REQUEST, arguments: {"key": data});
+            if (result["answer"] == true) {
+              id = result["id"];
+              userResponse = UserResponse.fromJson(data);
+              markers[const MarkerId("1")] = Marker(
+                  markerId: const MarkerId("1"),
+                  infoWindow: const InfoWindow(title: "Start address"),
+                  position: LatLng(userResponse!.startAddress!.latitude!,
+                      userResponse!.startAddress!.longitude!));
 
-      if (event.snapshot.exists) {
-        var data = event.snapshot.value as Map;
-        // var response = UserResponse.fromJson(data);
-        // queue.add(response);
-        var result = await Get.toNamed(Routes.REQUEST,arguments: {"key": data});
-        if (result == "true") {
-          userResponse = UserResponse.fromJson(data);
-          markers[const MarkerId("1")] = Marker(
-              markerId: const MarkerId("1"),
-              infoWindow: const InfoWindow(title: "Start address"),
-              position: LatLng(userResponse!.startAddress!.latitude!,
-                  userResponse!.startAddress!.longitude!));
-
-          markers[const MarkerId("2")] = Marker(
-              markerId: const MarkerId("2"),
-              icon: BitmapDescriptor.defaultMarkerWithHue(
-                  BitmapDescriptor.hueBlue),
-              infoWindow: const InfoWindow(title: "Destination"),
-              position: LatLng(userResponse!.destination!.latitude!,
-                  userResponse!.destination!.longitude!));
-          await route(userResponse!.startAddress, userResponse!.destination);
-
-          insertOverlay(context: context, userResponse: userResponse);
+              markers[const MarkerId("2")] = Marker(
+                  markerId: const MarkerId("2"),
+                  icon: BitmapDescriptor.defaultMarkerWithHue(
+                      BitmapDescriptor.hueBlue),
+                  infoWindow: const InfoWindow(title: "Destination"),
+                  position: LatLng(userResponse!.destination!.latitude!,
+                      userResponse!.destination!.longitude!));
+              await route(
+                  userResponse!.startAddress, userResponse!.destination);
+              listener?.pause();
+              insertOverlay(context: context, userResponse: userResponse, path: result["path"]);
+            }
+          }
         }
-      }
-    });
+      });
+    }catch (e) {
+      Get.log(e.toString());
+      isLoading.value = false;
+    }
     isLoading.value = false;
   }
+
 
   route(Destination? from, Destination? to) async {
     polylinePoints.clear();
@@ -129,10 +174,21 @@ class HomeController extends GetxController {
     polyline.refresh();
   }
 
+  void reset(){
+    polylinePoints.clear();
+    polyline.refresh();
+    markers.clear();
+    markers.refresh();
+    listener!.resume();
+
+    isAccepted.value = false;
+  }
+
   Future<void> cancelStatus() async {
     isLoading.value = true;
     await apiHandlerImp.get("driver/offline", {});
     listener!.cancel();
+    // listener1!.cancel();
     isLoading.value = false;
   }
 

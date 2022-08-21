@@ -21,24 +21,24 @@ class UserResponse {
   UserResponse.fromJson(Map<dynamic, dynamic> json) {
     createdTime = json['createdTime'];
     destination = json['destination'] != null
-        ? new Destination.fromJson(json['destination'])
+        ? Destination.fromJson(json['destination'])
         : null;
     discountId = json['discountId'];
     distanceAndTime = json['distanceAndTime'] != null
-        ? new DistanceAndTime.fromJson(json['distanceAndTime'])
+        ? DistanceAndTime.fromJson(json['distanceAndTime'])
         : null;
     note = json['note'];
     startAddress = json['startAddress'] != null
-        ? new Destination.fromJson(json['startAddress'])
+        ? Destination.fromJson(json['startAddress'])
         : null;
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    user = json['userInfor'] != null ? User.fromJson(json['userInfor']) : null;
     vehicleAndPrice = json['vehicleAndPrice'] != null
-        ? new VehicleAndPrice.fromJson(json['vehicleAndPrice'])
+        ? VehicleAndPrice.fromJson(json['vehicleAndPrice'])
         : null;
   }
 
   Map<dynamic,dynamic> toJson() {
-    final Map<dynamic,dynamic> data = new Map<dynamic,dynamic>();
+    final Map<dynamic,dynamic> data = Map<dynamic,dynamic>();
     data['createdTime'] = this.createdTime;
     if (this.destination != null) {
       data['destination'] = this.destination!.toJson();
@@ -84,7 +84,7 @@ class Destination {
 }
 
 class DistanceAndTime {
-  double? distance;
+  dynamic distance;
   int? timeSecond;
 
   DistanceAndTime({this.distance, this.timeSecond});

@@ -8,18 +8,19 @@ import 'package:intl/intl.dart';
 import '../../../data/user_response.dart';
 
 class OrderInformation extends StatelessWidget {
-  void Function(Timer?)? onStart;
-  void Function(Timer?)? onTrip;
+  void Function(Timer)? onStart;
+  void Function(Timer, RxBool)? onTrip;
   final UserResponse userResponse;
+  RxBool? isLoading = false.obs;
+  final Timer? timer;
 
-  OrderInformation({Key? key, this.onStart, this.onTrip, required this.userResponse}) : super(key: key);
+  OrderInformation({Key? key, this.onStart, this.onTrip, required this.userResponse, required this.timer}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     var h = (size.height * 0.55).obs;
     var text = "bắt đầu".obs;
-    Timer? timer;
     final formatBalance = NumberFormat("#,##0", "vi_VN");
 
 
@@ -65,7 +66,7 @@ class OrderInformation extends StatelessWidget {
                           "Order by",
                           style: TextStyle(fontWeight: FontWeight.w700),
                         ),
-                        subtitle: Text(userResponse.user!.fullName!),
+                        subtitle: Text(userResponse.user?.fullName ?? ""),
                         trailing: IconButton(
                             icon: const Icon(
                               Icons.call,
@@ -88,7 +89,7 @@ class OrderInformation extends StatelessWidget {
                         contentPadding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 15),
                         title: Text(
-                          userResponse.startAddress!.address!,
+                          userResponse.startAddress?.address ?? "",
                           style: TextStyle(fontWeight: FontWeight.w700),
                         ),
                         subtitle: Text(
@@ -102,11 +103,11 @@ class OrderInformation extends StatelessWidget {
                         contentPadding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 15),
                         title: Text(
-                          userResponse.destination!.address!,
+                          userResponse.destination?.address ?? "",
                           style: TextStyle(fontWeight: FontWeight.w700),
                         ),
                         subtitle: Text(
-                            userResponse.destination!.address!),
+                            userResponse.destination?.address ?? ""),
                       ),
                       Visibility(
                         visible: h.value == 0 ? true : false,
@@ -124,7 +125,7 @@ class OrderInformation extends StatelessWidget {
                                 "Tiền mặt",
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                              trailing: Text( "${formatBalance.format(userResponse.vehicleAndPrice!.price!)}đ"),
+                              trailing: Text( "${formatBalance.format(userResponse.vehicleAndPrice?.price ?? 0)}đ"),
                             ),
                             const SizedBox(
                               height: 20,
@@ -150,11 +151,11 @@ class OrderInformation extends StatelessWidget {
                             text.value = "đã hoàn thành";
                             break;
                           case "đã hoàn thành":
-                            if (onTrip != null) onTrip!(timer!);
+                            if (onTrip != null) onTrip!(timer!,isLoading!);
                             break;
                         }
                       },
-                      child: Obx(() => Text(text.value))),
+                      child: Obx(() => isLoading!.value ? CircularProgressIndicator() : Text(text.value))),
                 ),
               ),
             ),

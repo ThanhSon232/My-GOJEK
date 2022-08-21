@@ -1,0 +1,4 @@
+#Tue Aug 16 13:42:45 ICT 2022
+base.0=/Users/thanhson/Documents/GitHub/my_gojek_driver/build/app/intermediates/dex/release/minifyReleaseWithR8/classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
