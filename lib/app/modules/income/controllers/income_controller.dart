@@ -34,7 +34,7 @@ class IncomeController extends GetxController {
   }
 
   @override
-  void onReady() {
+  void onReady() async {
     super.onReady();
   }
 
@@ -46,7 +46,11 @@ class IncomeController extends GetxController {
   Future<void> getWallet() async {
     isLoading.value = true;
     var response_1 = await apiHandlerImp.get("driver/getWallet", {});
-    wallet = Wallet.fromJson(response_1.data["data"]);
+    try{
+      wallet = Wallet.fromJson(response_1.data["data"]);
+    }catch(e){
+      wallet = Wallet.fromJson(response_1.data["data"]);
+    }
     isLoading.value = false;
 
   }

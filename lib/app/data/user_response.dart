@@ -1,7 +1,7 @@
 class UserResponse {
   String? createdTime;
   Destination? destination;
-  String? discountId;
+  int? discountId;
   DistanceAndTime? distanceAndTime;
   String? note;
   Destination? startAddress;
@@ -105,7 +105,7 @@ class DistanceAndTime {
 class User {
   String? email;
   String? fullName;
-  bool? gender;
+  dynamic gender;
   String? homeAddress;
   int? id;
   String? phoneNumber;

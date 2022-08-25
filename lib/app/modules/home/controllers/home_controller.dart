@@ -13,6 +13,7 @@ import 'package:my_gojek_driver/app/data/api_handler.dart';
 import 'package:my_gojek_driver/app/data/model/driver_entity.dart';
 import 'package:my_gojek_driver/app/data/user_response.dart';
 import 'package:my_gojek_driver/app/modules/home/controllers/confirm_order.dart';
+import 'package:my_gojek_driver/app/modules/income/controllers/income_controller.dart';
 
 import '../../../data/Maps.dart';
 import '../../../data/network_handler.dart';
@@ -42,36 +43,36 @@ class HomeController extends GetxController {
   DriverEntity? driverEntity;
   Queue<Map<dynamic, dynamic>> queue = Queue();
   String? id;
+  var incomeController = Get.find<IncomeController>();
   // var q = StreamQueue<>();
 
   void insertOverlay(
       {required BuildContext context, required UserResponse? userResponse, required String path}) {
     overlayState = Overlay.of(context);
     isAccepted.value = true;
-
+    late Timer timer;
     overlayEntry = OverlayEntry(builder: (context) {
       return OrderInformation(
-        timer: Timer.periodic(const Duration(seconds: 5), (Timer t) async {
-          position.value = await map.getCurrentPosition();
-          await FirebaseDatabase.instance
-              .ref(
-              "$path/DriverAccept/position")
-              .set({
-            "lat": position["latitude"],
-            "long": position["longitude"]
-          });
-        }),
         userResponse: userResponse!,
-        onStart: (Timer timer) {
-
+        onStart: () {
+          timer = Timer.periodic(const Duration(seconds: 5), (Timer t) async {
+            position.value = await map.getCurrentPosition();
+            await apiHandlerImp.put({
+              "latitude": position["latitude"],
+              "longitude": position["longitude"]
+            }, "driver/updatePosition/$id");
+          });
         },
-        onTrip: (Timer timer, RxBool isLoading) async{
+        onTrip: (RxBool isLoading) async{
           if (position["latitude"].toStringAsFixed(3) ==
               userResponse.destination!.latitude!.toStringAsFixed(3) &&
              position["longitude"].toStringAsFixed(3) ==
                  userResponse.destination!.longitude!.toStringAsFixed(3)) {
             isLoading.value = true;
-            timer.cancel();
+            if(timer.isActive){
+              Get.log("Cancel");
+              timer.cancel();
+            }
             var response = await apiHandlerImp.put({
               "requestId": int.parse(id!),
               "completeTime" : DateFormat("yyyy-MM-dd HH:mm:ss").format(DateTime.now())
@@ -89,7 +90,7 @@ class HomeController extends GetxController {
                   },
                   "driver/online");
             }
-
+            await incomeController.getWallet();
             isLoading.value = false;
 
 

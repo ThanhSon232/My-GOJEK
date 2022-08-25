@@ -1,9 +1,7 @@
 import 'dart:async';
 
-import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
 import 'package:my_gojek_driver/app/data/api_handler.dart';
-import 'package:my_gojek_driver/app/data/model/driver_entity.dart';
 import 'package:my_gojek_driver/app/modules/home/controllers/home_controller.dart';
 
 class RequestController extends GetxController {
@@ -19,8 +17,12 @@ class RequestController extends GetxController {
     var id = data["requestId"].toString();
     Get.log(id);
     var response = await apiHandlerImp.get("driver/acceptBooking/$id", {});
-    print(response);
-    Get.back(result: {"answer": true, "path": response.data["data"], "id": data["requestId"].toString()});
+    if(response.data["status"]){
+      Get.back(result: {"answer": true, "path": response.data["data"], "id": data["requestId"].toString()});
+    } else {
+      Get.snackbar("Failed", "Failed");
+      Get.back();
+    }
   }
 
   @override

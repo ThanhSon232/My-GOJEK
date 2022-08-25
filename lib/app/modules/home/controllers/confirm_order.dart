@@ -8,13 +8,13 @@ import 'package:intl/intl.dart';
 import '../../../data/user_response.dart';
 
 class OrderInformation extends StatelessWidget {
-  void Function(Timer)? onStart;
-  void Function(Timer, RxBool)? onTrip;
+  void Function()? onStart;
+  void Function(RxBool)? onTrip;
   final UserResponse userResponse;
   RxBool? isLoading = false.obs;
-  final Timer? timer;
+  Timer? timer;
 
-  OrderInformation({Key? key, this.onStart, this.onTrip, required this.userResponse, required this.timer}) : super(key: key);
+  OrderInformation({Key? key, this.onStart, this.onTrip, required this.userResponse,  this.timer}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -147,15 +147,15 @@ class OrderInformation extends StatelessWidget {
                       onPressed: () {
                         switch (text.value) {
                           case "bắt đầu":
-                            if (onStart != null) onStart!(timer!);
+                            if (onStart != null) onStart!();
                             text.value = "đã hoàn thành";
                             break;
                           case "đã hoàn thành":
-                            if (onTrip != null) onTrip!(timer!,isLoading!);
+                            if (onTrip != null) onTrip!(isLoading!);
                             break;
                         }
                       },
-                      child: Obx(() => isLoading!.value ? CircularProgressIndicator() : Text(text.value))),
+                      child: Obx(() => isLoading!.value ? const CircularProgressIndicator() : Text(text.value))),
                 ),
               ),
             ),
